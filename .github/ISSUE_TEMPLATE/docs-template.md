@@ -1,7 +1,7 @@
 ---
 name: docs-template
-about: Issue template for docs
-title: "\U0001F4DD docs placeholder"
+about: Improvements or updates to documentation.
+title: 'docs: '
 labels: "\U0001F4DD docs"
 assignees: etranger2268
 

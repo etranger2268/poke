@@ -1,7 +1,7 @@
 ---
 name: bug-template
-about: Issue template for bugs
-title: "\U0001F41B bug placeholder"
+about: Report a bug or something that isn't working as expected.
+title: 'bug: '
 labels: "\U0001F41B bug"
 assignees: etranger2268
 

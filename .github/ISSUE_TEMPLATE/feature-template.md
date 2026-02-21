@@ -1,7 +1,7 @@
 ---
 name: feature-template
-about: Issue template for feature
-title: "✨ feature placeholder"
+about: Create a new feature or request an enhancement.
+title: 'feature: '
 labels: "✨ feature"
 assignees: etranger2268
 
