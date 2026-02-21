@@ -1,5 +1,5 @@
 ---
-name: "\U0001F4DD docs template"
+name: docs-template
 about: Issue template for docs
 title: "\U0001F4DD docs placeholder"
 labels: "\U0001F4DD docs"

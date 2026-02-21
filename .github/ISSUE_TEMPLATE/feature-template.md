@@ -1,5 +1,5 @@
 ---
-name: "✨ feature template"
+name: feature-template
 about: Issue template for feature
 title: "✨ feature placeholder"
 labels: "✨ feature"

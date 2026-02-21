@@ -1,5 +1,5 @@
 ---
-name: "\U0001F41B bug template"
+name: bug-template
 about: Issue template for bugs
 title: "\U0001F41B bug placeholder"
 labels: "\U0001F41B bug"
