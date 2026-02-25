@@ -1,13 +1,13 @@
 'use client';
 
 import Loading from '@/components/Loading';
-import { signIn, useSession } from '@/lib/auth/auth-client';
+import { authClient } from '@/lib/auth/auth-client';
 
 export default function SignInPage() {
-  const { isPending } = useSession();
+  const { isPending } = authClient.useSession();
 
   const handleLogin = async () => {
-    await signIn.social({
+    await authClient.signIn.social({
       provider: 'google',
       callbackURL: '/poke',
     });

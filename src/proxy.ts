@@ -9,7 +9,6 @@ export async function proxy(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
   const isAuthPage = pathname === '/sign-in';
-  const isPokePage = pathname.startsWith('/poke');
 
   if (isAuthPage) {
     if (session) {
