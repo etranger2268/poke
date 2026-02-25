@@ -16,7 +16,7 @@ const HeroSection = memo(() => {
       </div>
       <div>
         <Link
-          href="/"
+          href="/sign-in"
           className="bg-blue-500 text-lg text-white font-semibold py-3 px-9 rounded-full shadow-sm transition-opacity duration-300 hover:opacity-75"
         >
           Sign in
