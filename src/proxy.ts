@@ -7,21 +7,29 @@ export async function proxy(request: NextRequest) {
     headers: await headers(),
   });
 
-  const { pathname } = request.nextUrl;
-  const isAuthPage = pathname === '/sign-in';
+  const response = NextResponse.next();
 
-  if (isAuthPage) {
-    if (session) {
-      return NextResponse.redirect(new URL('/poke', request.url));
-    }
-    return NextResponse.next();
+  const { pathname, searchParams } = request.nextUrl;
+
+  if (searchParams.get('auth') === 'success') {
+    response.cookies.set('post-auth-toast', 'sign-in-success', {
+      path: '/',
+      maxAge: 10,
+      sameSite: 'lax',
+    });
   }
 
-  if (!session) {
+  const isAuthPage = pathname === '/sign-in';
+
+  if (!session && !isAuthPage) {
     return NextResponse.redirect(new URL('sign-in', request.url));
   }
 
-  return NextResponse.next();
+  if (session && isAuthPage) {
+    return NextResponse.redirect(new URL('/poke', request.url));
+  }
+
+  return response;
 }
 
 export const config = {

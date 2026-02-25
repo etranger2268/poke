@@ -7,10 +7,15 @@ export default function SignInPage() {
   const { isPending } = authClient.useSession();
 
   const handleLogin = async () => {
-    await authClient.signIn.social({
-      provider: 'google',
-      callbackURL: '/poke',
-    });
+    try {
+      await authClient.signIn.social({
+        provider: 'google',
+        callbackURL: '/poke?auth=success',
+      });
+    } catch (err) {
+      console.error(err);
+      throw new Error('サインインに失敗しました');
+    }
   };
 
   if (isPending) {

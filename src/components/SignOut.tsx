@@ -1,5 +1,6 @@
 'use client';
 
+import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import { memo, useState } from 'react';
 import { authClient } from '@/lib/auth/auth-client';
@@ -12,13 +13,19 @@ const SignOut = memo(() => {
     try {
       await authClient.signOut({
         fetchOptions: {
-          onSuccess: () => router.push('/'),
+          onSuccess: () => {
+            Cookies.set('post-auth-toast', 'sign-out-success', {
+              expires: 1 / 8640,
+              path: '/',
+            });
+            router.push('/');
+            router.refresh();
+          },
         },
       });
-      router.refresh();
     } catch (err) {
       console.error(err);
-      throw new Error('ログアウトに失敗しました');
+      throw new Error('サインアウトに失敗しました');
     } finally {
       setInProgress(false);
     }
