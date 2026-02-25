@@ -1,7 +1,10 @@
 import type { Metadata } from 'next';
 import '@/styles/globals.css';
+import { Suspense } from 'react';
+import { Toaster } from 'sonner';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
+import ToastHandler from '@/components/ToastHandler';
 import { inter, notoSansJP } from '@/styles/fonts';
 
 export const metadata: Metadata = {
@@ -16,10 +19,14 @@ type RootLayoutProps = Readonly<{
   children: React.ReactNode;
 }>;
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default async function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="ja">
       <body className={`${inter.variable} ${notoSansJP.variable} font-sans antialiased`}>
+        <Toaster richColors position="top-center" />
+        <Suspense fallback={null}>
+          <ToastHandler />
+        </Suspense>
         <div className="bg-slate-50 text-gray-600">
           <div className="flex flex-col min-h-screen">
             <div className="shrink-0">
