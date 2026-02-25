@@ -25,9 +25,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <div className="shrink-0">
               <Header />
             </div>
-            <main className="flex-1 flex flex-col">
-              {children}
-            </main>
+            <main className="flex-1 flex flex-col">{children}</main>
             <div className="shrink-0">
               <Footer />
             </div>
