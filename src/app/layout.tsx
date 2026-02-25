@@ -19,7 +19,7 @@ type RootLayoutProps = Readonly<{
   children: React.ReactNode;
 }>;
 
-export default async function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="ja">
       <body className={`${inter.variable} ${notoSansJP.variable} font-sans antialiased`}>
