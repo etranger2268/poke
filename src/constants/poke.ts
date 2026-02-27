@@ -16,3 +16,8 @@ export const FEATURED_POKEMON: GetPokeArgsType[] = [
 ];
 
 export const LIMIT = 30;
+
+export const LIMITS = [10, 30, 50, 100];
+export const INITIAL_LIMIT = 30;
+
+export const INITIAL_PAGE = 1;

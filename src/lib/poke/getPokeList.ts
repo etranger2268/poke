@@ -1,9 +1,12 @@
-import { LIMIT, POKE_API_ENDPOINT } from '@/constants/poke';
-import type { GetPokeListReturnType } from '@/types/poke';
+import { POKE_API_ENDPOINT } from '@/constants/poke';
+import type { GetPokeListArgsType, GetPokeListReturnType } from '@/types/poke';
 
-export const getPokeList = async (offset: number): Promise<GetPokeListReturnType> => {
+export const getPokeList = async ({
+  offset,
+  limit,
+}: GetPokeListArgsType): Promise<GetPokeListReturnType> => {
   try {
-    const res = await fetch(`${POKE_API_ENDPOINT}/pokemon?offset=${offset}&limit=${LIMIT}`);
+    const res = await fetch(`${POKE_API_ENDPOINT}/pokemon?offset=${offset}&limit=${limit}`);
 
     if (!res.ok) {
       throw new Error(`Failed to fetch poke`);
