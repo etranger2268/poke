@@ -9,6 +9,11 @@ export interface GetPokeArgsType {
   id: string;
 }
 
+export interface GetPokeListArgsType {
+  offset: number;
+  limit: number;
+}
+
 export interface GetFeaturedPokeReturnType {
   id: string;
   name: string;

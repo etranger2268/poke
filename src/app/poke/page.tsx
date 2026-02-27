@@ -2,36 +2,42 @@ import Link from 'next/link';
 import { Suspense } from 'react';
 import Loading from '@/components/Loading';
 import PokeList from '@/components/poke/PokeList';
-import { LIMIT } from '@/constants/poke';
+import SelectLimit from '@/components/SelectLimit';
+import { INITIAL_LIMIT, INITIAL_PAGE } from '@/constants/poke';
 import { getPoke } from '@/lib/poke/getPoke';
 import { getPokeList } from '@/lib/poke/getPokeList';
 
 interface PokePageProps {
-  searchParams: Promise<{ page?: number }>;
+  searchParams: Promise<{ page?: string; limit?: string }>;
 }
 
 export default async function PokePage({ searchParams }: PokePageProps) {
-  const { page } = await searchParams;
-  const currentPage = Number(page) || 1;
+  const { page, limit } = await searchParams;
+  const currentPage = Number(page) || INITIAL_PAGE;
+  const currentLimit = Number(limit) || INITIAL_LIMIT;
 
   return (
     <section className="my-18 space-y-18">
       <h2 className="text-center text-3xl text-gray-900 font-bold">ポケモン</h2>
+      <SelectLimit />
       <div className="flex justify-center items-center">
-        <Suspense key={currentPage} fallback={<Loading />}>
-          <PokePageContent searchParams={searchParams} />
+        <Suspense key={`page=${currentPage}&limit=${currentLimit}`} fallback={<Loading />}>
+          <PokePageContent currentPage={currentPage} currentLimit={currentLimit} />
         </Suspense>
       </div>
     </section>
   );
 }
 
-async function PokePageContent({ searchParams }: PokePageProps) {
-  const { page } = await searchParams;
-  const currentPage = Number(page) || 1;
-  const offset = (currentPage - 1) * LIMIT;
+interface PokePageContentProps {
+  currentPage: number;
+  currentLimit: number;
+}
 
-  const { next, previous, results } = await getPokeList(offset);
+async function PokePageContent({ currentPage, currentLimit }: PokePageContentProps) {
+  const offset = (currentPage - 1) * currentLimit;
+
+  const { next, previous, results } = await getPokeList({ offset, limit: currentLimit });
 
   const pokes = await Promise.all(
     results.map(({ url }) => {
@@ -50,28 +56,28 @@ async function PokePageContent({ searchParams }: PokePageProps) {
         <div className="flex justify-center items-center gap-32 text-lg font-medium text-white">
           {previous ? (
             <Link
-              href={`/poke?page=${currentPage - 1}`}
+              href={`/poke?page=${currentPage - 1}&limit=${currentLimit}`}
               scroll={false}
               className="py-2 px-4 rounded-md bg-blue-500 transition-all duration-300 hover:opacity-75"
             >
-              前の{LIMIT}件
+              前の{currentLimit}件
             </Link>
           ) : (
             <span className="py-2 px-4 rounded-md bg-gray-500 cursor-not-allowed">
-              前の{LIMIT}件
+              前の{currentLimit}件
             </span>
           )}
           {next ? (
             <Link
-              href={`/poke?page=${currentPage + 1}`}
+              href={`/poke?page=${currentPage + 1}&limit=${currentLimit}`}
               scroll={false}
               className="py-2 px-4 rounded-md bg-blue-500 transition-all duration-300 hover:opacity-75"
             >
-              次の{LIMIT}件
+              次の{currentLimit}件
             </Link>
           ) : (
             <span className="py-2 px-4 rounded-md bg-gray-500 cursor-not-allowed">
-              次の{LIMIT}件
+              次の{currentLimit}件
             </span>
           )}
         </div>
