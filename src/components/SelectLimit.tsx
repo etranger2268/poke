@@ -2,12 +2,15 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { memo } from 'react';
-import { INITIAL_LIMIT, INITIAL_PAGE, LIMITS } from '@/constants/poke';
+import { INITIAL_PAGE, LIMITS } from '@/constants/poke';
 
-const SelectLimit = memo(() => {
+interface SelectLimitProps {
+  selectedLimit: number;
+}
+
+const SelectLimit = memo(({ selectedLimit }: SelectLimitProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const selectedLimit = searchParams.get('limit') ?? INITIAL_LIMIT;
 
   const handleClickLimit = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.currentTarget.value;

@@ -13,13 +13,13 @@ interface PokePageProps {
 
 export default async function PokePage({ searchParams }: PokePageProps) {
   const { page, limit } = await searchParams;
-  const currentPage = Number(page) || INITIAL_PAGE;
-  const currentLimit = Number(limit) || INITIAL_LIMIT;
+  const currentPage = page !== undefined ? Number(page) : INITIAL_PAGE;
+  const currentLimit = limit !== undefined ? Number(limit) : INITIAL_LIMIT;
 
   return (
     <section className="my-18 space-y-18">
       <h2 className="text-center text-3xl text-gray-900 font-bold">ポケモン</h2>
-      <SelectLimit />
+      <SelectLimit selectedLimit={currentLimit} />
       <div className="flex justify-center items-center">
         <Suspense key={`page=${currentPage}&limit=${currentLimit}`} fallback={<Loading />}>
           <PokePageContent currentPage={currentPage} currentLimit={currentLimit} />
