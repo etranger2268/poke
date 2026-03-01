@@ -5,12 +5,20 @@ export interface PokeType {
   sprites: { other: { 'official-artwork': { front_default: string } } };
 }
 
+export interface PokeCountType {
+  count: number;
+}
+
 export interface GetPokeArgsType {
   id: string;
 }
 
 export interface GetPokeListArgsType {
   offset: number;
+  limit: number;
+}
+
+export interface GetPokeCountArgsType {
   limit: number;
 }
 
@@ -25,4 +33,9 @@ export interface GetPokeListReturnType {
   next?: string;
   previous?: string;
   results: { url: string }[];
+}
+
+export interface GetPokeCountReturnType {
+  totalCount: number;
+  pageCount: number;
 }

@@ -1,7 +1,7 @@
-import Link from 'next/link';
 import { Suspense } from 'react';
 import Loading from '@/components/Loading';
 import PokeList from '@/components/poke/PokeList';
+import PaginationBar from '@/components/poke/pagination/PaginationBar';
 import SelectLimit from '@/components/SelectLimit';
 import { INITIAL_LIMIT, INITIAL_PAGE } from '@/constants/poke';
 import { getPoke } from '@/lib/poke/getPoke';
@@ -19,7 +19,9 @@ export default async function PokePage({ searchParams }: PokePageProps) {
   return (
     <section className="my-18 space-y-18">
       <h2 className="text-center text-3xl text-gray-900 font-bold">ポケモン</h2>
-      <SelectLimit selectedLimit={currentLimit} />
+      <Suspense fallback={null}>
+        <SelectLimit selectedLimit={currentLimit} />
+      </Suspense>
       <div className="flex justify-center items-center">
         <Suspense key={`page=${currentPage}&limit=${currentLimit}`} fallback={<Loading />}>
           <PokePageContent currentPage={currentPage} currentLimit={currentLimit} />
@@ -52,36 +54,12 @@ async function PokePageContent({ currentPage, currentLimit }: PokePageContentPro
   return (
     <div className="space-y-12">
       <PokeList pokes={pokes} />
-      <div className="text-2xl font-semibold">
-        <div className="flex justify-center items-center gap-32 text-lg font-medium text-white">
-          {previous ? (
-            <Link
-              href={`/poke?page=${currentPage - 1}&limit=${currentLimit}`}
-              scroll={false}
-              className="py-2 px-4 rounded-md bg-blue-500 transition-all duration-300 hover:opacity-75"
-            >
-              前の{currentLimit}件
-            </Link>
-          ) : (
-            <span className="py-2 px-4 rounded-md bg-gray-500 cursor-not-allowed">
-              前の{currentLimit}件
-            </span>
-          )}
-          {next ? (
-            <Link
-              href={`/poke?page=${currentPage + 1}&limit=${currentLimit}`}
-              scroll={false}
-              className="py-2 px-4 rounded-md bg-blue-500 transition-all duration-300 hover:opacity-75"
-            >
-              次の{currentLimit}件
-            </Link>
-          ) : (
-            <span className="py-2 px-4 rounded-md bg-gray-500 cursor-not-allowed">
-              次の{currentLimit}件
-            </span>
-          )}
-        </div>
-      </div>
+      <PaginationBar
+        currentPage={currentPage}
+        currentLimit={currentLimit}
+        next={next}
+        previous={previous}
+      />
     </div>
   );
 }
