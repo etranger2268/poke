@@ -18,10 +18,6 @@ export interface GetPokeListArgsType {
   limit: number;
 }
 
-export interface GetPokeCountArgsType {
-  limit: number;
-}
-
 export interface GetFeaturedPokeReturnType {
   id: string;
   name: string;
@@ -33,9 +29,4 @@ export interface GetPokeListReturnType {
   next?: string;
   previous?: string;
   results: { url: string }[];
-}
-
-export interface GetPokeCountReturnType {
-  totalCount: number;
-  pageCount: number;
 }
