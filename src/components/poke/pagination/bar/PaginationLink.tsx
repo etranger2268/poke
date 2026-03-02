@@ -33,7 +33,7 @@ const PaginationLink = memo(
       <Link
         key={keyProps}
         href={`/poke?page=${pageNumber}&limit=${currentLimit}`}
-        className="py-2 px-4 rounded-md text-gray-900 border border-gray-200 bg-gray-100 transition-all duration-300 hover:opacity-75"
+        className="py-2 px-4 rounded-md text-gray-900 border border-gray-200 bg-gray-100 transition-all duration-300 hover:bg-gray-200"
       >
         {String(pageNumber).padStart(digits, '0')}
       </Link>
