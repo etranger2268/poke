@@ -5,8 +5,9 @@ export const getPokeList = async ({
   offset,
   limit,
 }: GetPokeListArgsType): Promise<GetPokeListReturnType> => {
+  const query = new URLSearchParams({ offset: String(offset), limit: String(limit) });
   try {
-    const res = await fetch(`${POKE_API_ENDPOINT}/pokemon?offset=${offset}&limit=${limit}`);
+    const res = await fetch(`${POKE_API_ENDPOINT}/pokemon?${query}`);
 
     if (!res.ok) {
       throw new Error(`Failed to fetch poke`);
